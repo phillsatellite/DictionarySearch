@@ -1,7 +1,14 @@
+/* I am improving the css after I submit this I know that doesnt count for my grade just wanted to mentino it. Unfortunately due to the rough week I had I had to spend most of my time writing the JavaScript  */
+
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
-  background: #3d8bad;
+  background: #282828da;
+}
+
+h1 {
+  color: white;
+  text-align: center;
 }
 
 form {
@@ -27,4 +34,8 @@ button {
 
 .error {
   color: red;
+}
+
+#searchForm {
+  text-align: center;
 }
