@@ -1,39 +1,91 @@
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background: #282828da;
+/* Reset some defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: #151521; /* deep dark background */
+  color: #f3f4f6; /* light gray text */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* Title */
 h1 {
-  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
   text-align: center;
 }
 
+/* Search form container */
 form {
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 500px;
 }
 
+/* Input */
 input {
-  padding: 8px;
-  width: 220px;
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  background: #2a2a3b;
+  color: #f9fafb;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus {
+  border-color: rgb(207, 75, 176); /* indigo highlight */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Button */
 button {
-  padding: 8px 12px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  background: #d355f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
+button:hover {
+  background: #451c51; 
+}
+
+/* Results card */
 #results {
-  background: #fff;
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  background: #2a2a3b;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   max-width: 700px;
+  width: 100%;
+  line-height: 1.6;
+  color: #e5e7eb;
 }
 
 .error {
-  color: red;
-}
-
-#searchForm {
-  text-align: center;
+  color: #f87171; /* soft red */
+  font-weight: 500;
 }
