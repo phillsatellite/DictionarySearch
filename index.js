@@ -7,12 +7,29 @@ var historyBtn = document.getElementById('historyButton');
 var historyModal = document.getElementsByClassName('history')[0];
 var clearBtn = document.getElementById('clearInput');
 
+// Prevents elements from being focused when page loads from a link
+document.addEventListener('DOMContentLoaded', function() {
+  // Remove focus from any currently focused element
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
+  
+  // Optional: Add event listeners to prevent programmatic focus
+  const focusableElements = document.querySelectorAll('input, button, [tabindex]');
+  focusableElements.forEach(el => {
+    el.addEventListener('mousedown', function(e) {
+      // Prevent focus on mouse click, but allow it on keyboard navigation
+      this.style.outline = 'none';
+    });
+  });
+});
+
 // Function to clear results
 function clearResults() {
   definitionDiv.innerHTML = '';
 }
 
-// Show the clear button when there’s text
+// Show the clear button when there's text
 input.addEventListener('input', function() {
   if (input.value.trim() !== '') {
     clearBtn.style.display = 'block';
