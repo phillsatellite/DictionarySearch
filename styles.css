@@ -75,6 +75,21 @@ h1 {
   box-shadow: 0 0 6px #d811b3; 
 }
 
+/* Remove browser default focus outline for mouse users */
+#searchInput:focus:not(:focus-visible) {
+  outline: none;
+  border: 1px solid #374151;
+  box-shadow: none;
+}
+
+/* Keep accessibility focus for keyboard users */
+#searchInput:focus-visible {
+  border: 1px solid #d811b3;   
+  box-shadow: 0 0 6px #d811b3;
+  outline: 2px solid #d811b3;
+  outline-offset: 2px;
+}
+
 .clear-btn {
   display: none;
   position: absolute;
@@ -101,12 +116,33 @@ h1 {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s ease;
+  outline: none; /* Remove default outline */
 }
 
 /* Hover effect for buttons */
 #searchForm button:hover,
 #historyButton:hover {
   background: #3f0639;
+}
+
+/* Remove browser default focus outline for mouse users */
+#searchForm button:focus:not(:focus-visible),
+#historyButton:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Keep accessibility focus for keyboard users */
+#searchForm button:focus-visible,
+#historyButton:focus-visible {
+  outline: 2px solid #d811b3;
+  outline-offset: 2px;
+}
+
+/* Alternative: If you want custom focus styling for buttons */
+#searchForm button:focus,
+#historyButton:focus {
+  box-shadow: 0 0 0 2px #d811b3;
 }
 
 /* Results card */
