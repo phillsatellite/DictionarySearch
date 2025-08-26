@@ -7,21 +7,38 @@ var historyBtn = document.getElementById('historyButton');
 var historyModal = document.getElementsByClassName('history')[0];
 var clearBtn = document.getElementById('clearInput');
 
-// Prevents elements from being focused when page loads from a link
+// More aggressive focus prevention when page loads
 document.addEventListener('DOMContentLoaded', function() {
   // Remove focus from any currently focused element
   if (document.activeElement && document.activeElement !== document.body) {
     document.activeElement.blur();
   }
   
-  // Optional: Add event listeners to prevent programmatic focus
-  const focusableElements = document.querySelectorAll('input, button, [tabindex]');
-  focusableElements.forEach(el => {
-    el.addEventListener('mousedown', function(e) {
-      // Prevent focus on mouse click, but allow it on keyboard navigation
-      this.style.outline = 'none';
+  // Force remove focus and outlines immediately
+  setTimeout(function() {
+    if (document.activeElement && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
+  }, 100);
+  
+  // Additional cleanup after a short delay
+  setTimeout(function() {
+    document.querySelectorAll('input, button').forEach(function(el) {
+      el.blur();
+      el.style.outline = 'none';
     });
-  });
+  }, 200);
+});
+
+// Prevent focus on page visibility change (when coming from another tab/window)
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    setTimeout(function() {
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
+    }, 50);
+  }
 });
 
 // Function to clear results
@@ -130,9 +147,10 @@ form.addEventListener('submit', function (e) {
 
   fetchWordData(word);
 
-  // Reset autofill border + shadow after search
+  // Reset autofill border + shadow after search and remove focus
   input.style.border = "1px solid #374151";
   input.style.boxShadow = "none";
+  input.blur();
 });
 
 // History toggle function
@@ -156,6 +174,9 @@ function toggleHistory() {
     historyModal.style.display = 'none';
     historyBtn.textContent = "Open History Log";
   }
+  
+  // Remove focus from the history button after clicking
+  historyBtn.blur();
 }
 
 // Attach click listener to history button
@@ -163,4 +184,4 @@ historyBtn.addEventListener('click', toggleHistory);
 
 // Initialize history as hidden on page load
 historyModal.style.display = 'none';
-historyBtn.textContent = "Open History Log";
+historyBtn.textContent = "Open History Log"

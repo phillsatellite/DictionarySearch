@@ -56,7 +56,7 @@ h1 {
   transition: background-color 9999s ease-in-out 0s;
 }
 
-/* Input */
+/* Input - Simplified focus handling */
 #searchInput {
   width: 100%;
   padding: 12px 40px 12px 14px; 
@@ -65,29 +65,15 @@ h1 {
   border-radius: 10px;
   background: #2a2a3b;
   color: #f9fafb;
-  outline: none;
+  outline: none !important; /* Force remove all outlines */
   transition: border 0.2s ease, box-shadow 0.2s ease; 
 }
 
-/* When user clicks into the input */
+/* Only show custom focus when actively typing */
 #searchInput:focus {
   border: 1px solid #d811b3;   
   box-shadow: 0 0 6px #d811b3; 
-}
-
-/* Remove browser default focus outline for mouse users */
-#searchInput:focus:not(:focus-visible) {
-  outline: none;
-  border: 1px solid #374151;
-  box-shadow: none;
-}
-
-/* Keep accessibility focus for keyboard users */
-#searchInput:focus-visible {
-  border: 1px solid #d811b3;   
-  box-shadow: 0 0 6px #d811b3;
-  outline: 2px solid #d811b3;
-  outline-offset: 2px;
+  outline: none !important;
 }
 
 .clear-btn {
@@ -105,7 +91,7 @@ h1 {
   color: #ffffff;
 }
 
-/* Buttons */
+/* Buttons - Simplified focus handling */
 #searchForm button,
 #historyButton {
   padding: 12px 18px;
@@ -116,7 +102,7 @@ h1 {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s ease;
-  outline: none; /* Remove default outline */
+  outline: none !important; /* Force remove all outlines */
 }
 
 /* Hover effect for buttons */
@@ -125,24 +111,11 @@ h1 {
   background: #3f0639;
 }
 
-/* Remove browser default focus outline for mouse users */
-#searchForm button:focus:not(:focus-visible),
-#historyButton:focus:not(:focus-visible) {
-  outline: none;
-  box-shadow: none;
-}
-
-/* Keep accessibility focus for keyboard users */
-#searchForm button:focus-visible,
-#historyButton:focus-visible {
-  outline: 2px solid #d811b3;
-  outline-offset: 2px;
-}
-
-/* Alternative: If you want custom focus styling for buttons */
+/* Custom focus for buttons only when tabbing */
 #searchForm button:focus,
 #historyButton:focus {
-  box-shadow: 0 0 0 2px #d811b3;
+  background: #3f0639;
+  outline: none !important;
 }
 
 /* Results card */
