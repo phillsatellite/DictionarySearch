@@ -7,8 +7,8 @@
 
 body {
   font-family: "Inter", Arial, sans-serif;
-  background: #151521; /* deep dark background */
-  color: #f3f4f6; /* light gray text */
+  background: #151521; 
+  color: #f3f4f6;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,52 +25,88 @@ h1 {
   text-align: center;
 }
 
-/* Search form container */
-form {
+/* Container for search form and history button */
+#searchContainer {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 24px;
+  justify-content: center; 
+  gap: 10px;              
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
+  margin-bottom: 24px;
+}
+
+/* Form itself: input + search button */
+#searchForm {
+  display: flex;
+  gap: 10px;  
+  flex: 1;     
+}
+
+.input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+#searchInput:-webkit-autofill,
+#searchInput:-webkit-autofill:hover,
+#searchInput:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f9fafb; 
+  border: 1px solid #d811b3;   
+  box-shadow: 0 0 6px #d811b3; 
+  transition: background-color 9999s ease-in-out 0s;
 }
 
 /* Input */
-input {
-  flex: 1;
-  padding: 12px 14px;
+#searchInput {
+  width: 100%;
+  padding: 12px 40px 12px 14px; 
   font-size: 1rem;
   border: 1px solid #374151;
   border-radius: 10px;
   background: #2a2a3b;
   color: #f9fafb;
   outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: border 0.2s ease, box-shadow 0.2s ease; 
 }
 
-input::placeholder {
-  color: #9ca3af;
+/* When user clicks into the input */
+#searchInput:focus {
+  border: 1px solid #d811b3;   
+  box-shadow: 0 0 6px #d811b3; 
 }
 
-input:focus {
-  border-color: rgb(207, 75, 176); /* indigo highlight */
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+.clear-btn {
+  display: none;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #f87171;
+  cursor: pointer;
 }
 
-/* Button */
-button {
+.clear-btn:hover {
+  color: #ffffff;
+}
+
+/* Buttons */
+#searchForm button,
+#historyButton {
   padding: 12px 18px;
   font-size: 1rem;
-  background: #d355f6;
-  color: white;
-  border: none;
+  background: #d811b3;
+  color: #ffffff;
+  border: 1px solid #374151;
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
-button:hover {
-  background: #451c51; 
+/* Hover effect for buttons */
+#searchForm button:hover,
+#historyButton:hover {
+  background: #3f0639;
 }
 
 /* Results card */
@@ -86,6 +122,23 @@ button:hover {
 }
 
 .error {
-  color: #f87171; /* soft red */
+  color: #f87171; 
   font-weight: 500;
+}
+
+/* History modal */
+.history {
+  display: none; 
+  color: #f9fafb;
+  background: #2a2a3b;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-width: 700px;
+  width: 100%;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+  gap: 8px;
 }

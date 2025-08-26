@@ -9,16 +9,30 @@
 <body>
   <h1>Dictionary Search</h1>
 
-  <form id="searchForm">
-    <input id="searchInput" type="text" placeholder="Type a word (e.g. example)" />
-    <button type="submit">Search</button>
-  </form>
+  <!-- Search + History -->
+  <div id="searchContainer">
+    <form id="searchForm">
+      <div class="input-wrapper">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <span id="clearInput" class="clear-btn">&times;</span>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <button type="button" id="historyButton">Open History Log</button>
+  </div>
 
+  <!-- History modal -->
+  <div class="history">
+    <h3>History</h3>
+    <ul id="historyList"></ul>
+  </div>
+
+  <!-- Results -->
   <section id="results">
     <div id="definition">Search for a word above.</div>
   </section>
 
-  <!-- links javascript code -->
+  <!-- JS -->
   <script src="index.js"></script>
 </body>
 </html>

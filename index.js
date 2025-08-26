@@ -1,20 +1,45 @@
+// DOM elements
 var form = document.getElementById('searchForm');
 var input = document.getElementById('searchInput');
 var definitionDiv = document.getElementById('definition');
+var searchHistory = []; 
+var historyBtn = document.getElementById('historyButton');
+var historyModal = document.getElementsByClassName('history')[0];
+var clearBtn = document.getElementById('clearInput');
 
-//function for clearing the results
+// Function to clear results
 function clearResults() {
   definitionDiv.innerHTML = '';
 }
 
-//function used for showing errors
+// Show the clear button when there’s text
+input.addEventListener('input', function() {
+  if (input.value.trim() !== '') {
+    clearBtn.style.display = 'block';
+  } else {
+    clearBtn.style.display = 'none';
+  }
+});
+
+// Clear input when clicking the X
+clearBtn.addEventListener('click', function() {
+  input.value = '';
+  clearBtn.style.display = 'none';
+  definitionDiv.innerHTML = 'Search for a word above.';
+
+  // Reset autofill border/shadow if any
+  input.style.border = "";
+  input.style.boxShadow = "";
+});
+
+// Function to show errors
 function showError(msg) {
   clearResults();
   definitionDiv.innerHTML = '<p class="error">' + msg + '</p>';
   console.error('Error shown to user:', msg);
 }
 
-//main display function
+// Display results function
 function displayResults(entry) {
   if (!entry) {
     showError('No entry found.');
@@ -23,18 +48,18 @@ function displayResults(entry) {
 
   clearResults();
 
-  //show the word and phonetic (if available)
+  // Word and phonetic
   definitionDiv.innerHTML = '<h3>' + entry.word + '</h3>';
   if (entry.phonetic) {
     definitionDiv.innerHTML += '<p><em>' + entry.phonetic + '</em></p>';
   }
 
-  //loop through the meanings
+  // Loop through meanings
   for (var i = 0; i < entry.meanings.length; i++) {
     var meaning = entry.meanings[i];
     definitionDiv.innerHTML += '<h4>' + meaning.partOfSpeech + '</h4>';
 
-    //loop through the definitions
+    // Loop through definitions
     for (var j = 0; j < meaning.definitions.length; j++) {
       var def = meaning.definitions[j];
       definitionDiv.innerHTML += '<p>• ' + def.definition + '</p>';
@@ -45,7 +70,7 @@ function displayResults(entry) {
   }
 }
 
-//function that fetches the word data
+// Fetch word data
 function fetchWordData(word) {
   var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word);
   console.log('Fetching:', url);
@@ -67,13 +92,15 @@ function fetchWordData(word) {
         return;
       }
       displayResults(data[0]);
+      searchHistory.push(word);
+      console.log('Search history:', searchHistory);
     })
     .catch(function(err) {
       showError(err.message || 'Fetch error');
     });
 }
 
-//event listener
+// Form submit listener
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var word = input.value.trim();
@@ -85,4 +112,38 @@ form.addEventListener('submit', function (e) {
   }
 
   fetchWordData(word);
+
+  // Reset autofill border + shadow after search
+  input.style.border = "1px solid #374151";
+  input.style.boxShadow = "none";
 });
+
+// History toggle function
+function toggleHistory() {
+  // If the history is currently hidden
+  if (historyModal.style.display === 'none' || historyModal.style.display === '') {
+    if (searchHistory.length === 0) {
+      historyModal.textContent = "No history to show";
+    } else {
+      historyModal.innerHTML = ''; // clear previous
+      searchHistory.forEach(word => {
+        const p = document.createElement('p');
+        p.textContent = word;
+        historyModal.appendChild(p);
+      });
+    }
+    historyModal.style.display = 'flex';
+    historyBtn.textContent = "Close History Log";
+  } else {
+    // Close history
+    historyModal.style.display = 'none';
+    historyBtn.textContent = "Open History Log";
+  }
+}
+
+// Attach click listener to history button
+historyBtn.addEventListener('click', toggleHistory);
+
+// Initialize history as hidden on page load
+historyModal.style.display = 'none';
+historyBtn.textContent = "Open History Log";
