@@ -10,3 +10,5 @@ If the user tries to look up something that is not a word or enters a blank word
 When the user enters a word the page will stop from refreshing and calls the "fetchWordData" function to fetch and display the results. During this it should display "Loading..."
 
 In the "displayResults" function there are two loops. The outer loop handles the categories of the word (noun, verb, adjetive) while the inner loop should handle the specific definitions inside each category. 
+
+After a word is searched it gets sent to an array (searchHistory) and is available to view upon the users request. 
